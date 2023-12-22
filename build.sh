@@ -59,7 +59,8 @@ build() {
 	    (cd "$repo"; python3 setup.py --command-packages=stdeb.command bdist_deb)
 	    mv "${repo}/deb_dist/"*.deb "${curdir}/build"
 	else
-	    (cd "${curdir}/build/"; sed -ie "s/Version:.*/Version: `date +"%s"`/g" ${repo}/DEBIAN/control; sudo dpkg-deb --build ${repo})
+	    version=$($curdir/extract_version.sh "${repo}")
+	    (cd "${curdir}/build/"; sed -ie "s/Version:.*/Version: $version/g" ${repo}/DEBIAN/control; sudo dpkg-deb --build ${repo})
 	fi
     done
 }
