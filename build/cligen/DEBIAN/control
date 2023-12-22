@@ -1,0 +1,7 @@
+Package: cligen
+Version: 1703234458
+Section: utils
+Priority: optional
+Architecture: all
+Maintainer: Kristofer Hallin <kristofer@sunet.se>
+Description: Cligen

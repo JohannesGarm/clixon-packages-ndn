@@ -1,0 +1,7 @@
+Package: clixon-controller
+Version: 1703234465
+Section: utils
+Priority: optional
+Architecture: all
+Maintainer: Kristofer Hallin <kristofer@sunet.se>
+Description: CLIXON Controller
