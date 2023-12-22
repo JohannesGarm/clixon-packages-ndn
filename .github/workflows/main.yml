@@ -22,22 +22,22 @@ jobs:
         API_USER: ${{ secrets.API_USER }}
         API_KEY: ${{ secrets.API_KEY }}
         API_URL: ${{ secrets.API_URL }}      
-      run (curl --user $env.API_USER:$env.API_KEY --upload-file build/cligen.deb $env.API_URL)
+      run: (curl --user $env.API_USER:$env.API_KEY --upload-file build/cligen.deb $env.API_URL)
     - name: Upload package clixon
       env:
         API_USER: ${{ secrets.API_USER }}
         API_KEY: ${{ secrets.API_KEY }}
         API_URL: ${{ secrets.API_URL }}      
-      run (curl --user $env.API_USER:$env.API_KEY --upload-file build/clixon.deb $env.API_URL)
+      run: (curl --user $env.API_USER:$env.API_KEY --upload-file build/clixon.deb $env.API_URL)
     - name: Upload package clixon-controller
       env:
         API_USER: ${{ secrets.API_USER }}
         API_KEY: ${{ secrets.API_KEY }}
         API_URL: ${{ secrets.API_URL }}      
-      run (curl --user $env.API_USER:$env.API_KEY --upload-file build/clixon-controller.deb $env.API_URL)
+      run: (curl --user $env.API_USER:$env.API_KEY --upload-file build/clixon-controller.deb $env.API_URL)
     - name: Upload package pyapi
       env:
         API_USER: ${{ secrets.API_USER }}
         API_KEY: ${{ secrets.API_KEY }}
         API_URL: ${{ secrets.API_URL }}      
-      run (curl --user $env.API_USER:$env.API_KEY --upload-file build/python3-clixon-pyapi_0.0.1-1_all.deb $env.API_URL)
+      run: (curl --user $env.API_USER:$env.API_KEY --upload-file build/python3-clixon-pyapi_0.0.1-1_all.deb $env.API_URL)
