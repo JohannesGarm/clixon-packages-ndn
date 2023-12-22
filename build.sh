@@ -65,7 +65,7 @@ build() {
 }
 
 clean() {
-    rm ${curdir}/build/*.deb
+    sudo rm -f ${curdir}/build/*.deb
     
     for repo in $repos; do
 	# Remove all files under ${curdir}/build/${repo}
@@ -75,7 +75,7 @@ clean() {
 	
 	# Do a make clean for all repos
 	if [ -d "${repo}" ]; then
-	    (cd "${repo}"; sudo make clean)
+	    sudo rm -r ${repo}
 	fi
     done
 }
