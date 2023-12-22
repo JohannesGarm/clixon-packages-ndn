@@ -14,8 +14,8 @@ usage() {
 
 build() {
     # Install dependencies
-    sudo apt update
-    sudo apt install -y git make gcc bison libnghttp2-dev libssl-dev flex build-essential python3
+    DEBIAN_FRONTEND=noninteractive sudo apt update
+    DEBIAN_FRONTEND=noninteractive sudo apt install -y git make gcc bison libnghttp2-dev libssl-dev flex build-essential python3
 
     # Create the user clicon if it does not exist
     grep clicon /etc/passwd > /dev/null
