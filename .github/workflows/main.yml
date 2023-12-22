@@ -1,6 +1,9 @@
 name: Clixon Builder
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0 * * * *'
 
