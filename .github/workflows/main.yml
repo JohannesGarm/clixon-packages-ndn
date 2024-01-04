@@ -7,7 +7,7 @@ on:
 jobs:
   build-job:
     name: Build
-    runs-on: debian-bookworm
+    runs-on: debian-latest
     timeout-minutes: 10
     steps:
     - uses: actions/checkout@v3
