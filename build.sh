@@ -13,7 +13,7 @@ usage() {
 build() {
     # Install dependencies
     DEBIAN_FRONTEND=noninteractive sudo apt update
-    DEBIAN_FRONTEND=noninteractive sudo apt install -y git make gcc bison libnghttp2-dev libssl-dev flex build-essential python3 dh-python
+    DEBIAN_FRONTEND=noninteractive sudo apt install -y git make gcc bison libnghttp2-dev libssl-dev flex build-essential python3 dh-python python3-stdeb python3-pip 
 
     # Create the user clicon if it does not exist
     grep clicon /etc/passwd > /dev/null
@@ -54,6 +54,7 @@ build() {
 
 	if [ "$repo" == "clixon-pyapi" ]; then
 	    (cd "$repo"; ./requirements-apt.sh)
+     	    (cd "$repo"; pip3 install -r requirements.txt)
 	    (cd "$repo"; python3 setup.py --command-packages=stdeb.command bdist_deb)
 	    mv "${repo}/deb_dist/"*.deb "${curdir}/build"
 	else
