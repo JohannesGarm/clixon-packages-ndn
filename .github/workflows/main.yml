@@ -1,4 +1,4 @@
-name: Clixon Builder
+name: Builder
 
 on:
   push:
