@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+#set -e
 
 repos="cligen clixon clixon-controller clixon-pyapi"
 curdir=$(pwd)
