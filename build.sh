@@ -47,9 +47,9 @@ build() {
 	if [ "$repo" == "cligen" ]; then
 	    (cd "$repo"; ./configure --prefix="$builddir"; make; sudo make install)
 	elif [ "$repo" == "clixon" ]; then
-	    (cd "$repo"; ./configure --prefix="$builddir" --with-cligen="${builddir}/cligen"; make; sudo make install)
+	    (cd "$repo"; ./configure --prefix="$builddir" --with-cligen="${curdir}/build/cligen"; make; sudo make install)
 	elif [ "$repo" == "clixon-controller" ]; then
-	    (cd "$repo"; ./configure --prefix="$builddir" --with-cligen="${builddir}/cligen" --with-clixon="${curdir}/build/clixon"; make; sudo make install)
+	    (cd "$repo"; ./configure --prefix="$builddir" --with-cligen="${curdir}/build/cligen" --with-clixon="${curdir}/build/clixon"; make; sudo make install)
 	fi
 
 	if [ "$repo" == "clixon-pyapi" ]; then
