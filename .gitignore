@@ -2,3 +2,11 @@ control
 *.deb
 *~
 #*
+cligen
+clixon
+clixon-controller
+clixon-pyapi
+build/cligen
+build/clixon
+build/clixon-controller
+build/clixon-pyapi
