@@ -16,6 +16,6 @@ fi
 repo="${repo%/}"
 cd "$repo"
 
-version=$(git describe --tags --abbrev=0)
+version=$(date +"%Y%m%d-%H%M")
 
 echo $version

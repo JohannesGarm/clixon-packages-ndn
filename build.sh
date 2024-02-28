@@ -7,6 +7,7 @@ usage() {
 	echo "Usage: $0 [options]"
 	echo "-b build packages"
 	echo "-c clean up"
+	echo "-u upload packages"
 	exit
 }
 
@@ -23,13 +24,13 @@ build() {
     fi
 
     # Clone all repos
-    for repo in ${repos}; do 
+    for repo in ${repos}; do
 	if [ -d "${repo}" ]; then
 	    (cd "${repo}"; git pull)
 	else
 	    git clone "https://github.com/clicon/${repo}.git"
 	fi
-	
+
 	if [ $? != 0 ]; then
 	    echo "Git: ${repo} failed"
 	    exit
@@ -53,10 +54,10 @@ build() {
 	fi
 
 	if [ "$repo" == "clixon-pyapi" ]; then
-	    (cd "$repo"; ./requirements-apt.sh)
-     	    (cd "$repo"; pip3 install -r requirements.txt)
-	    (cd "$repo"; python3 setup.py --command-packages=stdeb.command bdist_deb)
-	    mv "${repo}/deb_dist/"*.deb "${curdir}/build"
+	    echo "Should build PyAPI here..."
+	#    (cd "$repo"; ./requirements-apt.sh)
+	#    (cd "$repo"; python3 setup.py --command-packages=stdeb.command bdist_deb)
+	#    mv "${repo}/deb_dist/"*.deb "${curdir}/build"
 	else
 	    version=$($curdir/extract_version.sh "${repo}")
 	    (cd "${curdir}/build/"; sed -ie "s/Version:.*/Version: $version/g" ${repo}/DEBIAN/control; sudo dpkg-deb --build ${repo})
@@ -66,17 +67,37 @@ build() {
 
 clean() {
     sudo rm -f ${curdir}/build/*.deb
-    
+
     for repo in $repos; do
 	# Remove all files under ${curdir}/build/${repo}
 	if [ -d "${curdir}/build/${repo}" ]; then
 	    (cd "${curdir}/build/${repo}"; sudo rm -rf bin etc include lib sbin share var local)
 	fi
-	
+
 	# Do a make clean for all repos
 	if [ -d "${repo}" ]; then
 	    sudo rm -r ${repo}
 	fi
+    done
+}
+
+upload() {
+    if [ -z ${API_USER} ]; then
+	echo "API_USER must be set."
+	exit
+    fi
+
+    if [ -z ${API_KEY} ]; then
+	echo "API_KEY must be set."
+	exit
+    fi
+
+    if [ -z ${API_URL} ]; then
+	API_URL="https://platform.sunet.se/api/packages/khn/debian/pool/bookworm/main/upload"
+    fi
+
+    for package in build/*.deb; do
+	curl --user ${API_USER}:${API_KEY} --upload-file $package ${API_URL}
     done
 }
 
@@ -85,13 +106,16 @@ if [ $# -eq 0 ]; then
     usage
 fi
 
-while getopts "bc" opt; do
+while getopts "bcu" opt; do
     case $opt in
 	    b)
 	    build
 	    ;;
 	c)
 	    clean
+	    ;;
+	u)
+	    upload
 	    ;;
 	*)
 	    usage
