@@ -60,7 +60,8 @@ build() {
 	#    mv "${repo}/deb_dist/"*.deb "${curdir}/build"
 	else
 	    version=$($curdir/extract_version.sh "${repo}")
-	    (cd "${curdir}/build/"; sed -ie "s/Version:.*/Version: $version/g" ${repo}/DEBIAN/control; sudo dpkg-deb --build ${repo})
+	    arch=$(dpkg --print-architecture)
+	    (cd "${curdir}/build/"; sed -ie "s/Version:.*/Version: $version/g" ${repo}/DEBIAN/control; sed -ie "s/Architecture:.*/Architecture: $arch/g" ${repo}/DEBIAN/control; sudo dpkg-deb --build ${repo})
 	fi
     done
 }
