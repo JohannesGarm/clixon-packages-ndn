@@ -1,7 +1,7 @@
 Package: cligen
-Version: 1703234458
+Version: 20240228-1425
 Section: utils
 Priority: optional
-Architecture: all
+Architecture: amd64
 Maintainer: Kristofer Hallin <kristofer@sunet.se>
 Description: Cligen

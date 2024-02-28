@@ -14,7 +14,7 @@ usage() {
 build() {
     # Install dependencies
     DEBIAN_FRONTEND=noninteractive sudo apt update
-    DEBIAN_FRONTEND=noninteractive sudo apt install -y git make gcc bison libnghttp2-dev libssl-dev flex build-essential python3 dh-python python3-stdeb python3-pip 
+    DEBIAN_FRONTEND=noninteractive sudo apt install -y git make gcc bison libnghttp2-dev libssl-dev flex build-essential python3 dh-python python3-stdeb python3-pip
 
     # Create the user clicon if it does not exist
     grep clicon /etc/passwd > /dev/null
@@ -40,6 +40,7 @@ build() {
     # Build all repos
     for repo in $repos; do
 	builddir="${curdir}/build/${repo}"
+	version=$(date +"%Y%m%d-%H%M")
 
 	if [ "$repo" != "clixon-pyapi" ]; then
 	    sudo chown root:root "$builddir"
@@ -54,12 +55,10 @@ build() {
 	fi
 
 	if [ "$repo" == "clixon-pyapi" ]; then
-	    echo "Should build PyAPI here..."
 	    (cd "$repo"; ./requirements-apt.sh)
-	    (cd "$repo"; DEB_BUILD_OPTIONS=nocheck python3 setup.py --command-packages=stdeb.command bdist_deb)
+	    (cd "$repo"; VERSION=${version} DEB_BUILD_OPTIONS=nocheck python3 setup.py --command-packages=stdeb.command bdist_deb)
 	    mv "${repo}/deb_dist/"*.deb "${curdir}/build"
 	else
-	    version=$($curdir/extract_version.sh "${repo}")
 	    arch=$(dpkg --print-architecture)
 	    (cd "${curdir}/build/"; sed -ie "s/Version:.*/Version: $version/g" ${repo}/DEBIAN/control; sed -ie "s/Architecture:.*/Architecture: $arch/g" ${repo}/DEBIAN/control; sudo dpkg-deb --build ${repo})
 	fi
