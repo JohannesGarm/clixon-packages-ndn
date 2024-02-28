@@ -55,9 +55,9 @@ build() {
 
 	if [ "$repo" == "clixon-pyapi" ]; then
 	    echo "Should build PyAPI here..."
-	#    (cd "$repo"; ./requirements-apt.sh)
-	#    (cd "$repo"; python3 setup.py --command-packages=stdeb.command bdist_deb)
-	#    mv "${repo}/deb_dist/"*.deb "${curdir}/build"
+	    (cd "$repo"; ./requirements-apt.sh)
+	    (cd "$repo"; DEB_BUILD_OPTIONS=nocheck python3 setup.py --command-packages=stdeb.command bdist_deb)
+	    mv "${repo}/deb_dist/"*.deb "${curdir}/build"
 	else
 	    version=$($curdir/extract_version.sh "${repo}")
 	    arch=$(dpkg --print-architecture)
