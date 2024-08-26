@@ -34,10 +34,10 @@ RUN git clone https://github.com/clicon/clixon.git
 RUN git clone https://github.com/clicon/clixon-controller.git
 RUN git clone https://github.com/clicon/clixon-pyapi.git
 
-RUN (cd cligen; git checkout 38b24acbc30cec1b13277b2a7ac1782a0ae441f0)
-RUN (cd clixon; git checkout 9738345f828e15eae6dafd52980da564e882694e)
-RUN (cd clixon-controller; git checkout 172d6aca7cbd01eb76a07c950eed68f5ba9f325e)
-RUN (cd clixon-pyapi; git checkout 0a36751554f25986472e39c535c6f6080fa76f95)
+RUN (cd cligen; git checkout e8e37b804520fc7e13c6db6f555f487c2b93f4a0)
+RUN (cd clixon; git checkout 99503ac7fbbd9afef7517d68599aca744794f428)
+RUN (cd clixon-controller; git checkout da544e966185ced6b54e56763aed1013bf0879ab)
+RUN (cd clixon-pyapi; git checkout 6e5665321aae1171895ba6e132bffd15bdd884d5)
 
 RUN useradd -m -d /home/clicon clicon
 RUN ls -l /home
