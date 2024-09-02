@@ -26,6 +26,10 @@ MAINTAINER Kristofer Hallin <kristofer@sunet.se>
 RUN apt update
 RUN apt install -y procps emacs-nox git make gcc bison libnghttp2-dev libssl-dev flex python3 python3-pip sudo sshpass
 
+RUN mkdir ~/.ssh
+COPY ssh/id_rsa /root/.ssh/id_rsa
+COPY ssh/config /root/.ssh/config
+
 RUN mkdir /clixon
 WORKDIR /clixon
 
