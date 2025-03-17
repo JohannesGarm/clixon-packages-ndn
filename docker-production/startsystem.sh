@@ -52,11 +52,13 @@ EOF
 >&2 echo "start clixon_backend:"
 
 if [ -z ${USE_STARTUPDB+x} ]; then
-    /usr/local/sbin/clixon_backend -FD $DBG -f /usr/local/etc/clixon/controller.xml -l e
+    /usr/local/sbin/clixon_backend -FD $DBG -f /usr/local/etc/clixon.xml -lf/var/log/clixon-backend.log
 else
     echo "Using startup database"
-    /usr/local/sbin/clixon_backend -FD $DBG -f /usr/local/etc/clixon/controller.xml -l e -s startup
+    /usr/local/sbin/clixon_backend -FD $DBG -f /usr/local/etc/clixon.xml -lf/var/log/clixon-backend.log -s startup
 fi
+
+clixon_cli -1 "processes services stop"
 
 # Alt: let backend be in foreground, but then you cannot restart
 /bin/sleep infinity

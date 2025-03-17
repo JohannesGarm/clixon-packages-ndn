@@ -71,6 +71,7 @@ RUN cp clixon_server.py /usr/local/bin/
 
 #USER clicon
 RUN pip3 install -r requirements.txt --break-system-packages
+RUN pip3 install --break-system-packages requests
 
 USER root
 WORKDIR /clixon
@@ -78,6 +79,11 @@ RUN pip3 install -r clixon-pyapi/requirements.txt --break-system-packages
 RUN cp /usr/local/etc/clixon/controller.xml /usr/local/etc/clixon/clixon.xml
 RUN cp /usr/local/etc/clixon/controller.xml /usr/local/etc/clixon.xml
 
+
+WORKDIR /clixon/clixon-controller
+RUN cd extensions/plugins; make; make install; ldconfig
+
+WORKDIR /clixon
 COPY startsystem.sh /usr/local/bin/
 
 ENTRYPOINT /usr/local/bin/startsystem.sh
