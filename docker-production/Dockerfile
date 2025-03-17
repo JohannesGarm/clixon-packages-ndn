@@ -86,4 +86,4 @@ RUN cd extensions/plugins; make; make install; ldconfig
 WORKDIR /clixon
 COPY startsystem.sh /usr/local/bin/
 
-ENTRYPOINT /usr/local/bin/startsystem.sh
+ENTRYPOINT ["/usr/local/bin/startsystem.sh"]
